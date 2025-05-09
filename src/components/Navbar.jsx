@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Box, Button, TextField, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import LoginSignup from '../pages/LoginSignup'; // adjust path if needed
+// import LoginSignup from '../pages/LoginSignup'; // adjust path if needed
 
 
 const Navbar = () => {

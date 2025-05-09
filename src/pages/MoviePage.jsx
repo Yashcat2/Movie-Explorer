@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchTrendingMovies, getImageUrl } from '../api/tmdb';
 import {
-  Grid, Card, CardMedia, CardContent, Typography, Container, CircularProgress, Box
+  Grid, Card, CardMedia, CardContent, Typography, Container, CircularProgress
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
