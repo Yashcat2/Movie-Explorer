@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import { Container, Typography, Box } from '@mui/material';
+import { Link } from 'react-router-dom';  // Import Link component
 import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_TMDB_KEY;
@@ -73,16 +74,19 @@ const Home = () => {
         <Slider {...settings}>
           {movies.map((movie) => (
             <Box key={movie.id} sx={{ position: 'relative' }}>
-              <img
-                src={`${IMAGE_BASE_URL}${movie.backdrop_path || movie.poster_path}`}
-                alt={movie.title}
-                style={{
-                  width: '100%',
-                  height: 425,
-                  objectFit: 'cover',
-                  borderRadius: '10px'
-                }}
-              />
+              <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}> {/* Link to movie details */}
+                <img
+                  src={`${IMAGE_BASE_URL}${movie.backdrop_path || movie.poster_path}`}
+                  alt={movie.title}
+                  style={{
+                    width: '100%',
+                    height: 425,
+                    objectFit: 'cover',
+                    borderRadius: '10px'
+                  }}
+                />
+              </Link>
+
               <Box
                 sx={{
                   position: 'absolute',
@@ -103,28 +107,27 @@ const Home = () => {
               >
                 {movie.trailerKey && (
                   <Box
-                  component="a"
-                  href={`https://www.youtube.com/watch?v=${movie.trailerKey}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(255,255,255,0.2)',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textDecoration: 'none',
-                    fontWeight: 'bold',
-                    fontSize: '1.1rem',
-                    border: '2px solid white'
-                  }}
-                >
-                  ▶
-                </Box>
-                
+                    component="a"
+                    href={`https://www.youtube.com/watch?v=${movie.trailerKey}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(255,255,255,0.2)',
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textDecoration: 'none',
+                      fontWeight: 'bold',
+                      fontSize: '1.1rem',
+                      border: '2px solid white'
+                    }}
+                  >
+                    ▶
+                  </Box>
                 )}
 
                 <Box>
@@ -135,26 +138,21 @@ const Home = () => {
                     {new Date(movie.release_date).getFullYear()}
                   </Typography>
                   <Typography
-                      variant="body1"
-                      component="a"
-                      href={`https://www.youtube.com/watch?v=${movie.trailerKey}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        color: 'rgba(255,255,255,0.8)', // for better visibility, use 0.8 or adjust as needed
-                        // backgroundColor: 'rgba(255,255,255,0.2)',
-                        // px: 2,
-                        // py: 1,
-                        borderRadius: 1,
-                        textDecoration: 'none',
-                        fontWeight: 'bold',
-                        fontSize: '0.75rem',
-                        // display: 'inline-block'
-                      }}
-                    >
-                      Watch the Trailer
-                    </Typography>
-
+                    variant="body1"
+                    component="a"
+                    href={`https://www.youtube.com/watch?v=${movie.trailerKey}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: 'rgba(255,255,255,0.8)',
+                      borderRadius: 1,
+                      textDecoration: 'none',
+                      fontWeight: 'bold',
+                      fontSize: '0.75rem',
+                    }}
+                  >
+                    Watch the Trailer
+                  </Typography>
                 </Box>
               </Box>
             </Box>

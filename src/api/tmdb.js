@@ -20,6 +20,26 @@ export const fetchTrendingMovies = async () => {
   }
 };
 
+// Fetch discover movies (can be used as "all movies" with filters)
+export const fetchAllMovies = async (page = 1) => {
+  try {
+    const response = await tmdb.get('/discover/movie', {
+      params: {
+        include_adult: false,
+        include_video: false,
+        language: 'en-US',
+        sort_by: 'popularity.desc',
+        page,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching all movies:', error);
+    return { results: [], total_pages: 0 };
+  }
+};
+
+
 // Search movies
 export const searchMovies = async (query, page = 1) => {
   try {
@@ -59,7 +79,8 @@ export const getMovieCredits = async (movieId) => {
 
 // Helper to build full image URL
 export const getImageUrl = (path, size = 'w500') => {
-  return path ? `https://image.tmdb.org/t/p/${size}${path}` : '';
+  return path
+    ? `https://image.tmdb.org/t/p/${size}${path}`
+    : 'https://via.placeholder.com/500x750?text=No+Image';
 };
-
 export default tmdb;

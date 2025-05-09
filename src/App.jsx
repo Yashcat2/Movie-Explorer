@@ -10,6 +10,8 @@ import LoginSignup from './pages/LoginSignup'; // Adjust path if needed
 import MoviePage from './pages/MoviePage';
 import MovieDetails from './pages/MovieDetails'; // 👈 new page
 import FavoritesPage from './pages/Favorites'; // Adjust path if needed
+import SearchResults from './components/SearchResults';
+import AllMoviePage from './pages/AllMoviePage';
 
 function App() {
   return (
@@ -21,6 +23,10 @@ function App() {
         <Route path="/movies" element={<MoviePage />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
         <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/allmovies" element={<AllMoviePage />} />
+
+
       </Routes>
       
       {/* ToastContainer for displaying toast notifications */}

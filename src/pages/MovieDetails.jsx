@@ -52,6 +52,9 @@ const MovieDetails = () => {
               component="img"
               image={getImageUrl(movie.poster_path)}
               alt={movie.title}
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/500x750?text=No+Image';
+              }}
               sx={{
                 width: '100%',
                 maxWidth: '100%',
