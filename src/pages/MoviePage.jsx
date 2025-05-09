@@ -6,7 +6,6 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-
 const MoviePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,35 +42,50 @@ const MoviePage = () => {
       >
         🎬 Trending Movies
       </Typography>
-  
+
       <Grid container spacing={4} justifyContent="center">
         {movies.map((movie) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
-            <Card component={Link} to={`/movie/${movie.id}`} sx={{ height: '100%',width:300, display: 'flex', flexDirection: 'column', borderRadius: 3 }}>
-              <CardMedia
-                component="img"
-                image={getImageUrl(movie.poster_path)}
-                alt={movie.title}
-                sx={{ height: 350,width:300, objectFit: 'cover' }}
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h6" gutterBottom noWrap>
-                  {movie.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Release: {movie.release_date?.split('-')[0] || 'N/A'}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Rating: {movie.vote_average}
-                </Typography>
-              </CardContent>
-            </Card>
+            <Link
+              to={`/movie/${movie.id}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <Card
+                sx={{
+                  height: '100%',
+                  width: 300,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: 3,
+                  '&:hover': {
+                    boxShadow: 6,
+                  },
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  image={getImageUrl(movie.poster_path)}
+                  alt={movie.title}
+                  sx={{ height: 350, width: 300, objectFit: 'cover' }}
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" gutterBottom noWrap>
+                    {movie.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Release: {movie.release_date?.split('-')[0] || 'N/A'}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Rating: {movie.vote_average}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>
     </Container>
   );
-  
 };
 
 export default MoviePage;
