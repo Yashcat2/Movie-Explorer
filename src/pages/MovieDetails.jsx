@@ -1,10 +1,10 @@
-// src/pages/MovieDetails.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetails, getImageUrl } from '../api/tmdb';
 import {
   Container, Typography, Grid, CardMedia, Chip, Box, CircularProgress, Button
 } from '@mui/material';
+import { toast } from 'react-toastify'; // Import toast
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -25,6 +25,20 @@ const MovieDetails = () => {
     loadDetails();
   }, [id]);
 
+  // Add to favorites functionality
+  const addToFavorites = (movie) => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    // Check if movie is already in favorites
+    const isMovieInFavorites = storedFavorites.some((fav) => fav.id === movie.id);
+    if (!isMovieInFavorites) {
+      storedFavorites.push(movie);
+      localStorage.setItem('favorites', JSON.stringify(storedFavorites));
+      
+      // Show toast notification
+      toast.success(`${movie.title} has been added to favorites!`);
+    }
+  };
+
   if (loading) return <Container sx={{ textAlign: 'center', mt: 4 }}><CircularProgress /></Container>;
   if (!movie) return <Container><Typography>Error loading movie.</Typography></Container>;
 
@@ -33,12 +47,7 @@ const MovieDetails = () => {
       <Grid container spacing={5}>
         {/* Left Column: Poster */}
         <Grid item xs={6} md={4}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CardMedia
               component="img"
               image={getImageUrl(movie.poster_path)}
@@ -70,12 +79,7 @@ const MovieDetails = () => {
               Genres
             </Typography>
             {movie.genres.map((genre) => (
-              <Chip
-                key={genre.id}
-                label={genre.name}
-                color="primary"
-                sx={{ mr: 1, mb: 1 }}
-              />
+              <Chip key={genre.id} label={genre.name} color="primary" sx={{ mr: 1, mb: 1 }} />
             ))}
           </Box>
 
@@ -97,6 +101,16 @@ const MovieDetails = () => {
               Watch Trailer
             </Button>
           )}
+
+          {/* Add to Favorites button */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => addToFavorites(movie)}
+            sx={{ mt: 2, ml: 2 }}
+          >
+            Add to Favorites
+          </Button>
         </Grid>
       </Grid>
     </Container>
